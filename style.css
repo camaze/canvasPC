@@ -1,5 +1,5 @@
 #xxx {
-    background: green;
+    /* background: green; */
     display: block;
 }
 
@@ -8,13 +8,74 @@
     padding: 0;
 }
 
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
 .actions {
     position: fixed;
     left: 0;
-    bottom: 0;
+    top: 0;
+    padding: 15px;
 }
 
-.actions>#brush {
+.actions svg {
+    width: 1.5em;
+    height: 1.5em;
+    transition: all 0.2s;
+    margin: 0 5px;
+}
+
+.actions svg.active {
+    fill: red;
+    transform: scale(1.1);
+}
+
+.colors {
+    position: fixed;
+    top: 49px;
+    left: 18px;
+}
+
+.colors>li {
+    width: 20px;
+    height: 20px;
+    /* border: 1px solid red; */
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.82);
+    margin: 10px 0;
+    transition: all 0.2s;
+}
+
+.colors>li.red {
+    background: red;
+}
+
+.colors>li.green {
+    background: green;
+}
+
+.colors>li.blue {
+    background: blue;
+}
+
+.colors>li.active {
+    transform: scale(1.2);
+}
+
+/* .actions>#brush {
     display: none;
 }
 
@@ -24,4 +85,4 @@
 
 .actions.x>#eraser {
     display: none;
-}
+} */

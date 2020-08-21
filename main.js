@@ -1,8 +1,12 @@
 var yyy = document.getElementById('xxx');
 var context = yyy.getContext('2d');
+// context.strokeStyle = 'red'    //必须在设定好画板大小后才有用。
+
 
 // 1. 设置画板大小
 autoSetCanvasSize(yyy);
+
+context.strokeStyle = 'red' //初始颜色
 
 // 2. 监听用户行为 分为鼠标和触摸板
 listenToUser(yyy);
@@ -10,16 +14,42 @@ listenToUser(yyy);
 // 3. 橡皮擦
 /* eraser */
 var eraserEnabled = false;
+// brush.onclick = function () {
+pen.onclick = function () {
+    eraserEnabled = false;
+    pen.classList.add('active')
+    eraser.classList.remove('active')
+    // actions.className = 'actions';
+}
+
 eraser.onclick = function () {
     eraserEnabled = true;
-    actions.className = 'actions x';
+    eraser.classList.add('active')
+    pen.classList.remove('active')
+    // actions.className = 'actions x';
 }
 
-brush.onclick = function () {
-    eraserEnabled = false;
-    actions.className = 'actions';
+// 4. 不同颜色画笔
+red.onclick = function () {
+    context.strokeStyle = 'red'
+    red.classList.add('active')
+    green.classList.remove('active')
+    blue.classList.remove('active')
 }
 
+green.onclick = function () {
+    context.strokeStyle = 'green'
+    green.classList.add('active')
+    red.classList.remove('active')
+    blue.classList.remove('active')
+}
+
+blue.onclick = function () {
+    context.strokeStyle = 'blue'
+    blue.classList.add('active')
+    red.classList.remove('active')
+    green.classList.remove('active')
+}
 
 /* functions */
 function autoSetCanvasSize(canvas) {
@@ -135,14 +165,14 @@ function listenToUser(canvas) {
 
 function drawCircle(x, y, radius) {
     context.beginPath();
-    context.fillStyle = 'black';
+    // context.fillStyle = 'black';
     context.arc(x, y, radius, 0, Math.PI * 2);
     context.fill();
 }
 
 function drawLine(x1, y1, x2, y2) {
     context.beginPath();
-    context.strokeStyle = 'black'
+    // context.strokeStyle = 'red'
     context.lineWidth = 5;
     context.moveTo(x1, y1);
     context.lineTo(x2, y2);
