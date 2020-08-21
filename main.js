@@ -4,8 +4,8 @@ var context = yyy.getContext('2d');
 // 1. 设置画板大小
 autoSetCanvasSize(yyy);
 
-// 2. 监听鼠标
-listenToMouse(yyy);
+// 2. 监听用户行为 分为鼠标和触摸板
+listenToUser(yyy);
 
 // 3. 橡皮擦
 /* eraser */
@@ -37,52 +37,99 @@ function autoSetCanvasSize(canvas) {
     }
 }
 
-function listenToMouse(canvas) {
-
-    var painting = false;
-    var lastPoint = {
-        x: undefined,
-        y: undefined
-    };
-    canvas.onmousedown = function (aaa) {
-        var x = aaa.clientX;
-        var y = aaa.clientY;
-        painting = true;
-        if (eraserEnabled) {
+function listenToUser(canvas) {
+    if (document.body.ontouchstart !== undefined) {
+        // 支持触摸
+        var painting = false;
+        var lastPoint = {
+            x: undefined,
+            y: undefined
+        };
+        canvas.ontouchstart = function (aaa) {
+            var x = aaa.touches[0].clientX;
+            var y = aaa.touches[0].clientY;
+            painting = true;
+            if (eraserEnabled) {
+                var x = aaa.clientX;
+                var y = aaa.clientY;
+                context.clearRect(x - 5, y - 5, 10, 10);
+            } else {
+                //   drawCircle(x,y,1);
+                lastPoint = {
+                    x: x,
+                    y: y
+                };
+            }
+        }
+        canvas.ontouchmove = function (aaa) {
+            var x = aaa.touches[0].clientX;
+            var y = aaa.touches[0].clientY;
+            //没有使用画线或橡皮擦直接退出函数
+            if (!painting) {
+                return
+            }
+            if (eraserEnabled) {
+                context.clearRect(x - 5, y - 5, 10, 10)
+            } else {
+                var newPoint = {
+                    x: x,
+                    y: y
+                };
+                //     drawCircle(x,y,1);
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+                lastPoint = newPoint;
+            }
+        }
+        canvas.ontouchend = function () {
+            painting = false;
+        }
+    } else {
+        // 不支持触摸，用鼠标
+        var painting = false;
+        var lastPoint = {
+            x: undefined,
+            y: undefined
+        };
+        canvas.onmousedown = function (aaa) {
             var x = aaa.clientX;
             var y = aaa.clientY;
-            context.clearRect(x - 5, y - 5, 10, 10);
-        } else {
-            //   drawCircle(x,y,1);
-            lastPoint = {
-                x: x,
-                y: y
-            };
+            painting = true;
+            if (eraserEnabled) {
+                var x = aaa.clientX;
+                var y = aaa.clientY;
+                context.clearRect(x - 5, y - 5, 10, 10);
+            } else {
+                //   drawCircle(x,y,1);
+                lastPoint = {
+                    x: x,
+                    y: y
+                };
+            }
         }
-    }
 
-    canvas.onmousemove = function (aaa) {
-        var x = aaa.clientX;
-        var y = aaa.clientY;
-        //没有使用画线或橡皮擦直接退出函数
-        if (!painting) {
-            return
+        canvas.onmousemove = function (aaa) {
+            var x = aaa.clientX;
+            var y = aaa.clientY;
+            //没有使用画线或橡皮擦直接退出函数
+            if (!painting) {
+                return
+            }
+            if (eraserEnabled) {
+                context.clearRect(x - 5, y - 5, 10, 10)
+            } else {
+                var newPoint = {
+                    x: x,
+                    y: y
+                };
+                //     drawCircle(x,y,1);
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+                lastPoint = newPoint;
+            }
         }
-        if (eraserEnabled) {
-            context.clearRect(x - 5, y - 5, 10, 10)
-        } else {
-            var newPoint = {
-                x: x,
-                y: y
-            };
-            //     drawCircle(x,y,1);
-            drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
-            lastPoint = newPoint;
-        }
-    }
 
-    canvas.onmouseup = function (aaa) {
-        painting = false;
+        canvas.onmouseup = function () {
+            painting = false;
+        }
     }
 }
 
