@@ -1,5 +1,6 @@
 var yyy = document.getElementById('xxx');
 var context = yyy.getContext('2d');
+var lineWidth = 5
 // context.strokeStyle = 'red'    //必须在设定好画板大小后才有用。
 
 
@@ -50,6 +51,23 @@ blue.onclick = function () {
     red.classList.remove('active')
     green.classList.remove('active')
 }
+
+// 5. 不同粗细画笔
+thin.onclick = function () {
+    lineWidth = 5
+}
+
+thick.onclick = function () {
+    lineWidth = 10
+}
+
+// 6. 清空画板
+clear.onclick = function () {
+    console.log('h1')
+    context.clearRect(0, 0, yyy.width, yyy.height)
+}
+
+
 
 /* functions */
 function autoSetCanvasSize(canvas) {
@@ -173,7 +191,7 @@ function drawCircle(x, y, radius) {
 function drawLine(x1, y1, x2, y2) {
     context.beginPath();
     // context.strokeStyle = 'red'
-    context.lineWidth = 5;
+    context.lineWidth = lineWidth;
     context.moveTo(x1, y1);
     context.lineTo(x2, y2);
     context.stroke();
