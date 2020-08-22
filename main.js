@@ -67,6 +67,15 @@ clear.onclick = function () {
     context.clearRect(0, 0, yyy.width, yyy.height)
 }
 
+// 7. 下载画的图
+download.onclick = function () {
+    var url = yyy.toDataURL('image/png')
+    console.log('url', url)
+    var a = document.createElement('a')
+    a.href = url
+    a.download = 'my painting'
+    a.click()
+}
 
 
 /* functions */
