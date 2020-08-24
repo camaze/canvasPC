@@ -1,2 +1,5 @@
-console.log(x)
-var x = 1
+var a = {}
+console.log(a)
+
+var b = null
+console.log(b)

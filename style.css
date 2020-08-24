@@ -74,6 +74,10 @@ ol {
     background: blue;
 }
 
+.colors>li.black {
+    background: black;
+}
+
 .colors>li.active {
     transform: scale(1.2);
 }
