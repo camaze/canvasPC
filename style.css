@@ -78,6 +78,12 @@ ol {
     background: black;
 }
 
+.colors>li.white {
+    background: white;
+    border: #666;
+}
+
+
 .colors>li.active {
     transform: scale(1.2);
 }

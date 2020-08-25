@@ -37,6 +37,7 @@ red.onclick = function () {
     green.classList.remove('active')
     blue.classList.remove('active')
     black.classList.remove('active')
+    white.classList.remove('active')
 }
 
 green.onclick = function () {
@@ -45,6 +46,7 @@ green.onclick = function () {
     red.classList.remove('active')
     blue.classList.remove('active')
     black.classList.remove('active')
+    white.classList.remove('active')
 }
 
 blue.onclick = function () {
@@ -53,6 +55,7 @@ blue.onclick = function () {
     red.classList.remove('active')
     green.classList.remove('active')
     black.classList.remove('active')
+    white.classList.remove('active')
 }
 
 black.onclick = function () {
@@ -61,6 +64,16 @@ black.onclick = function () {
     red.classList.remove('active')
     green.classList.remove('active')
     blue.classList.remove('active')
+    white.classList.remove('active')
+}
+
+white.onclick = function () {
+    context.strokeStyle = 'white'
+    white.classList.add('active')
+    red.classList.remove('active')
+    green.classList.remove('active')
+    blue.classList.remove('active')
+    black.classList.remove('active')
 }
 
 // 5. 不同粗细画笔
